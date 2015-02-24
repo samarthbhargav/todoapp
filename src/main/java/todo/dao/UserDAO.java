@@ -3,14 +3,10 @@ package todo.dao;
 import todo.entity.User;
 import todo.except.UserAlreadyExistsException;
 import todo.except.UserDoesNotExistException;
-import todo.util.PasswordUtil;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
-import com.mongodb.DuplicateKeyException;
 
 
 public class UserDAO
@@ -21,8 +17,9 @@ public class UserDAO
 
     private DBObject convertToDBObject( User u )
     {
-        return BasicDBObjectBuilder.start( "_id", u.getUsername() ).add( "pass", PasswordUtil.getSaltedHash( u.getPassword() ) )
-            .get();
+        // TODO Convert a User object to a DBObject
+        // TODO Consider what the _id field should be
+        return null;
     }
 
 
@@ -34,27 +31,17 @@ public class UserDAO
 
     public void addUser( User u ) throws UserAlreadyExistsException
     {
-        try {
-            this.collection.insert( convertToDBObject( u ) );
-        } catch ( DuplicateKeyException e ) {
-            throw new UserAlreadyExistsException();
-        }
+        // TODO add a user User to the collection. If a User already exists, a UserAlreadyExistsException must be thrown
+        // TODO DO NOT Store the plaintext password - use PasswordUtil.getSaltedHash() to salt+hash the password and store that
     }
 
 
     public boolean authenticate( String username, String password ) throws UserDoesNotExistException
     {
-        DBObject obj = this.collection.findOne( new BasicDBObject( "_id", username ) );
-
-        if ( obj == null ) {
-            throw new UserDoesNotExistException();
-        }
-
-        if ( !PasswordUtil.check( password, obj.get( "pass" ).toString() ) ) {
-            return false;
-        }
-
-        return true;
+        // TODO Authenticate a user
+        // TODO If a user with id "username" does not exist, throw a UserDoesNotExistException
+        // You can use the PasswordUtil.check() method to check if password is correct
+        return false;
     }
 
 }

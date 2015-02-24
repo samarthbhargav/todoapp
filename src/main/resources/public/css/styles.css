@@ -1,0 +1,21 @@
+html, body, .container {
+    /*height: 100%;*/
+}
+.container {
+    display: table;    
+}
+.vertical-center-row {
+    display: table-cell;    
+    text-align: center;    
+}
+
+#inp-form {
+	color: white;
+	background-color:#8E8E8E;
+	padding: 7%;
+}
+
+
+label-link {
+	text-decoration:none !important;
+}
